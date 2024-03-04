@@ -1,7 +1,7 @@
 body {
     font-size: 16px;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    width: 8in;
+    max-width: 8in;
     margin: 0.25in;
 }
 

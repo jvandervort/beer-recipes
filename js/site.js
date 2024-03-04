@@ -97,6 +97,7 @@ async function init() {
         document.getElementById("instructions-container").innerHTML = md.render(instructions);
         document.getElementById("notes-container").innerHTML = md.render(notes);
         document.getElementById("recipe-container").style.display = "block";
+        return;
     }
 }
 
@@ -114,7 +115,7 @@ async function getIdx() {
 async function getRecipe(recipeFile) {
     if (!recipeFile) { return }
 
-    const result = await fetch(`/recipes/${recipeFile}`);
+    const result = await fetch(`./recipes/${recipeFile}`);
     if (result.ok) { return result.text() }
     
     return null;
@@ -133,7 +134,7 @@ function getRecipeList() {
         retHtml += `<div>${capitalizeFirstLetter(key)}</div><ul>`
         console.log(key, cats[key]);
         cats[key].forEach((element) => {
-            retHtml += `<li><a href="/?recipe=${element.file}">${element.title}</a></li>`
+            retHtml += `<li><a href="index.html?recipe=${element.file}">${element.title}</a></li>`
         });
 
         retHtml += '</ul>';
@@ -166,7 +167,7 @@ async function parseMarkdown(markdown) {
     let description = headerExec[4];
 
     // hack because local markdown doesn't have the correct paths for web server
-    description = description.replaceAll(/img src=".\/images\//g, 'img src="/recipes/images\/');
+    description = description.replaceAll(/img src=".\/images\//g, 'img src="./recipes/images\/');
 
 
     let ingredients = '';
