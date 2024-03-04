@@ -1,6 +1,6 @@
 ---
 categories: german, altbier
-source: [John Vandervort](http://vandervortsweb.com)
+source: [John Vandervort]
 original-gravity: 0.00
 final-gravity: 0.00
 batch-size: 5.0
