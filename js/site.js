@@ -129,16 +129,19 @@ function getRecipeList() {
         cats[element.categories[0]].push(element);
     });
 
+    // sort cats
+    let sortedKeys = Object.keys(cats).sort();
     let retHtml = '';
-    for (let key in cats) {
-        retHtml += `<div>${capitalizeFirstLetter(key)}</div><ul>`
-        console.log(key, cats[key]);
-        cats[key].forEach((element) => {
-            retHtml += `<li><a href="index.html?recipe=${element.file}">${element.title}</a></li>`
-        });
+    sortedKeys.forEach((key) => {
+        // sort cat recipes
+        cats[key] = cats[key].sort((a, b) => a.title.localeCompare(b.title));
 
+        retHtml += `<div>${capitalizeFirstLetter(key)}</div><ul>`
+        cats[key].forEach((element) => {
+            retHtml += `<li><a href="index.html?recipe=${element.file}">${element.title}</a></li>`;
+        });
         retHtml += '</ul>';
-    }
+    });
     return retHtml;
 }
 
