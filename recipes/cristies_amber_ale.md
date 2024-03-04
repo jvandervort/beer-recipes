@@ -1,5 +1,5 @@
 ---
-categories: american, amber ale
+categories: amber ale, american
 source: [John Vandervort]
 original-gravity: 1.057
 final-gravity: 1.015

@@ -4,129 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Beer Recipes</title>
-    <script src="libs/markdown-it.min.js"></script>
-    <style>
-        body {
-            font-size: 16px;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-            width: 8in;
-            margin: 0.25in;
-        }
-        #back-link {
-            margin-right: 8px;
-        }
-
-        #back-icon {
-            height: 28px;
-            width: 28px;
-            margin-bottom: -2px;
-        }
-
-        #title-wrapper {
-            margin-top: 16px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: baseline;
-        }
-
-
-        img {
-            border-radius: 8px;
-            height: 200px;
-        }
-
-        h1, h2 {
-            margin: 0;
-        }
-        #recipe-container h1, #recipe-container h2 {
-            padding-bottom: 3px;
-            border-bottom: solid thin #c0c0c0;
-        }
-
-    </style>
-
-    <script>
-        const md = markdownit({
-            html: true,
-            linkify: true,
-            typographer: true
-        });
-
-        async function loadRecipe() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const recipeFile = urlParams.get('recipe');
-            if (!recipeFile) {
-                return;
-            }
-            const result = await fetch(`/recipes/${recipeFile}.md`);
-            return result.text();
-        }
-
-        async function loadRecipeList() {
-            const result = await fetch(`/recipes.md`);
-            return result.text();
-        }
-
-        async function parseMarkdown(markdown) {
-
-            const regexHeader = /(^|\n)(# (.+))([^#]+?)(## )/gm;
-            const headerExec = regexHeader.exec(markdown)
-            const title = headerExec[3];
-            let description = headerExec[4];
-
-            // hack because local markdown doesn't have the correct paths for web server
-            description = description.replaceAll(/img src=".\/images\//g, 'img src="/recipes/images\/');
-
-            let ingredients = '';
-            let instructions = '';
-            let notes = '';
-
-            const regexSubheading = /^## [\s\S]*?(?=^## |(?![\S\s]))/gm;
-            let myArray;
-            while ((myArray = regexSubheading.exec(markdown)) !== null) {
-                if (myArray[0].startsWith('## Ingredients')) {
-                    ingredients = myArray[0];
-                }
-                else if (myArray[0].startsWith('## Instructions')) {
-                    instructions = myArray[0];
-                    console.log('intstructions=' + instructions);
-                }
-                else if (myArray[0].startsWith('## Notes')) {
-                    notes = myArray[0];
-                    console.log('notes=' + notes);
-                }
-            }
-
-            return [title, description, ingredients, instructions, notes];
-        }
-
-        async function init() {
-            const recipe = await loadRecipe();
-            if (!recipe) {
-                const recipeList = await loadRecipeList();
-                document.getElementById("recipe-list").innerHTML = md.render(recipeList);
-                document.getElementById("recipe-list").style.display = "block";
-                document.getElementById("recipe-container").style.display = "none";
-                return;
-            }
-            else {
-                const [title, description, ingredients, instructions, notes] = await parseMarkdown(recipe);
-                document.title = title;
-                document.getElementById("title").innerHTML = title;
-                document.getElementById("description").innerHTML = md.render(description);
-                document.getElementById("ingredients-container").innerHTML = md.render(ingredients);
-                document.getElementById("instructions-container").innerHTML = md.render(instructions);
-                document.getElementById("notes-container").innerHTML = md.render(notes);
-                document.getElementById("recipe-container").style.display = "block";
-            }
-        }
-
-        init().catch(error => console.log(error));
-    </script>
+    <link rel="stylesheet" href="css/site.css">
+    <script src="lib/markdown-it.min.js"></script>
+    <script src ="js/site.js"></script>
 </head>
-
 <body>
-    <div id="recipe-container" class="container">
+
+    <div id="recipe-list-container">
+        <h1>Beer Recipes</h1>
+        <ul id="recipe-list"></ul>
+    </div>
+
+    <div id="recipe-container">
         <div id="title-wrapper">
             <div>
                 <a id="back-link" href="/">
@@ -144,7 +33,5 @@
         <div id="instructions-container"></div>
         <div id="notes-container"></div>
     </div>
-    <div id="recipe-list" class="container"></div>
 </body>
-
 </html>

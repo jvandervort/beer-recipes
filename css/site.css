@@ -1,0 +1,43 @@
+body {
+    font-size: 16px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 8in;
+    margin: 0.25in;
+}
+
+#recipe-list-container {
+    display:none;
+}
+
+
+#back-link {
+    margin-right: 8px;
+}
+
+#back-icon {
+    height: 28px;
+    width: 28px;
+    margin-bottom: -2px;
+}
+
+#title-wrapper {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: baseline;
+}
+
+
+img {
+    border-radius: 8px;
+    height: 200px;
+}
+
+h1, h2 {
+    margin: 0;
+}
+
+#recipe-container h1, #recipe-container h2 {
+    padding-bottom: 3px;
+    border-bottom: solid thin #c0c0c0;
+}

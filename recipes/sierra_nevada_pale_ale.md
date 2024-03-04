@@ -1,5 +1,5 @@
 ---
-categories: american, pale ale
+categories: pale ale, american
 source: [Sierra Nevada Brewery](https://sierranevada.com/blog/our-beer/pale-ale-homebrew-recipe/#recipe-jump)
 original-gravity: 0.00
 final-gravity: 0.00

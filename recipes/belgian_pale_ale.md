@@ -1,5 +1,5 @@
 ---
-categories: belgian, pale ale
+categories: pale ale, belgian
 source: [MicroHomeBrew](https://www.microhomebrew.com/)
 original-gravity: 0.00
 final-gravity: 0.00

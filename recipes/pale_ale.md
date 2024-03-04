@@ -1,5 +1,5 @@
 ---
-categories: american, pale ale
+categories: pale ale, american
 source: [MicroHomeBrew](https://www.microhomebrew.com/)
 original-gravity: 0.00
 final-gravity: 0.00

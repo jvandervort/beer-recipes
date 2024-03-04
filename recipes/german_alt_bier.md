@@ -1,5 +1,5 @@
 ---
-categories: german, altbier
+categories: altbier, german
 source: [John Vandervort]
 original-gravity: 0.00
 final-gravity: 0.00

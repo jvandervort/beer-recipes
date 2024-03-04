@@ -8,7 +8,7 @@
 ## Amber Ale
 - [Cristie's Amber Ale](/?recipe=cristies_amber_ale)
 
-## 🍝 German Altbier
+## German Altbier
 - [German Altbier-1](/?recipe=german_alt_bier)
 
 ## Amber Lager
