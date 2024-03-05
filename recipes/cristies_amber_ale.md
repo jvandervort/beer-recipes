@@ -13,12 +13,12 @@ Along the lines of an Alaskan Amber clone.
 ## Ingredients
 
 - 6 lb Amber Malt Syrup [malt]
-  1 lb Light Dry Malt [malt]
-  1 lb Wheat/Pale Dry Malt [malt]
-  1-1/4 oz Cascade Leaf Hops (45 min boil) [hops]
-  1/2 oz Saaz leaf hops (20 min boil) [hops]
-  1/2 oz Saaz leaf hops (steep at end) [hops]
-  1 tube German ale yeast (pitchable) [yeast]
+- 1 lb Light Dry Malt [malt]
+- 1 lb Wheat/Pale Dry Malt [malt]
+- 1-1/4 oz Cascade Leaf Hops (45 min boil) [hops]
+- 1/2 oz Saaz leaf hops (20 min boil) [hops]
+- 1/2 oz Saaz leaf hops (steep at end) [hops]
+- 1 tube German ale yeast (pitchable) [yeast]
 
 ## Instructions
 
