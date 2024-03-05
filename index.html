@@ -9,29 +9,34 @@
     <script src ="js/site.js"></script>
 </head>
 <body>
-
-    <div id="recipe-list-container">
-        <h1>Beer Recipes</h1>
-        <ul id="recipe-list"></ul>
-    </div>
-
-    <div id="recipe-container">
-        <div id="title-wrapper">
-            <div>
-                <a id="back-link" href="./">
-                    <svg xmlns="http://www.w3.org/2000/svg" id="back-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                    </svg>
-                </a>
+    <div id="page-wrapper">
+        
+        <div id="recipe-list-container">
+            <div class="header">
+                <h1>Beer Recipes</h1>
+                <input id="search-box" type="text" onKeyUp="search()" style="width:225px;" placeholder="title search"/>
             </div>
-            <div style="flex-grow: 1;">
-                <h1 id="title"></h1>
-            </div>
+            <ul id="recipe-list"></ul>
         </div>
-        <div id="description"></div>
-        <div id="ingredients-container"></div>
-        <div id="instructions-container"></div>
-        <div id="notes-container"></div>
+
+        <div id="recipe-container">
+            <div id="title-wrapper">
+                <div>
+                    <a id="back-link" href="./">
+                        <svg xmlns="http://www.w3.org/2000/svg" id="back-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                        </svg>
+                    </a>
+                </div>
+                <div style="flex-grow: 1;">
+                    <h1 id="title"></h1>
+                </div>
+            </div>
+            <div id="description"></div>
+            <div id="ingredients-container"></div>
+            <div id="instructions-container"></div>
+            <div id="notes-container"></div>
+        </div>
     </div>
 </body>
 </html>

@@ -82,7 +82,7 @@ async function init() {
     const recipeFile = urlParams.get('recipe');
     const recipe = await getRecipe(recipeFile);
     if (!recipe) {
-        const recipeList = getRecipeList();
+        const recipeList = getRecipeList('');
         document.getElementById("recipe-list").innerHTML = recipeList;
         document.getElementById("recipe-list-container").style.display = "block";
         document.getElementById("recipe-container").style.display = "none";
@@ -121,9 +121,18 @@ async function getRecipe(recipeFile) {
     return null;
 }
 
-function getRecipeList() {
+function getRecipeList(searchVal) {
     const cats = {};
-    FILE_IDX.forEach((element) => {
+
+    let recipeList = [];
+    if (!searchVal) {
+        recipeList = FILE_IDX;
+    }
+    else {
+        recipeList = FILE_IDX.filter((r) => r.title.toLowerCase().indexOf(searchVal.toLowerCase()) >= 0);
+    }
+
+    recipeList.forEach((element) => {
         if (!element.categories) {element.categories = ['unclassified']}
         if (!cats[element.categories[0]]) {cats[element.categories[0]] = []}
         cats[element.categories[0]].push(element);
@@ -191,6 +200,11 @@ async function parseMarkdown(markdown) {
     }
 
     return [title, description, ingredients, instructions, notes, meta];
+}
+
+function search() {
+    const searchBox = document.getElementById('search-box');
+    document.getElementById("recipe-list").innerHTML = getRecipeList(searchBox.value.trim());
 }
 
 function capitalizeFirstLetter(string) {

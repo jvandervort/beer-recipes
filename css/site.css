@@ -1,14 +1,21 @@
+
 body {
-    font-size: 16px;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin:    1rem auto;
     max-width: 8in;
-    margin: 0.25in;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 100%;
+    background-color:rgb(220, 232, 245);
+}
+
+#page-wrapper {
+    padding: 1rem;
+    border-radius: 10px;
+    background-color: #ffffff;
 }
 
 #recipe-list-container {
     display:none;
 }
-
 
 #back-link {
     margin-right: 8px;
@@ -21,7 +28,6 @@ body {
 }
 
 #title-wrapper {
-    margin-top: 16px;
     margin-bottom: 8px;
     display: flex;
     align-items: baseline;
