@@ -1,6 +1,6 @@
 ---
 categories: pale ale, american
-source: [Sierra Nevada Brewery](https://sierranevada.com/blog/our-beer/pale-ale-homebrew-recipe/#recipe-jump)
+source: "[Sierra Nevada Brewery](https://sierranevada.com/blog/our-beer/pale-ale-homebrew-recipe/#recipe-jump)"
 original-gravity: 0.00
 final-gravity: 0.00
 batch-size: 5.0

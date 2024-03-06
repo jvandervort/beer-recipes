@@ -1,6 +1,6 @@
 ---
 categories: amber lager, mexican
-source: [Pueblo Vida Brewing Company](https://www.pueblovidabrewing.com/)
+source: "[Pueblo Vida Brewing Company](https://www.pueblovidabrewing.com/)"
 original-gravity: 0.00
 final-gravity: 0.00
 batch-size: 5.0
