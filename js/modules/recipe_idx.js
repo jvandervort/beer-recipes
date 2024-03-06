@@ -1,3 +1,5 @@
+import { getRecipeFile } from './recipe_service.js';
+
 // all recipes need to be added manually to fileList
 // and fileIdx needs to be rebuilt using URL: /?build-idx
 export const fileList = [
@@ -68,7 +70,7 @@ export async function getIdxJson() {
 async function getIdx() {
     const newIdx = [];
     for (const file of fileList) {
-        const recipe = await getFullMdText(file);
+        const recipe = await getRecipeFile(file);
         const [title, description, ingredients, instructions, notes, meta] = await getMdSections(recipe);
         newIdx.push({file:file, title:title, categories:meta.categories});
     };
