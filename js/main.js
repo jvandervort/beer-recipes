@@ -1,4 +1,4 @@
-"use strict";
+import { filterRecipes } from './modules/search.js';
 
 // all recipes need to be added manually to FILE_LIST
 // and FILE_IDX needs to be rebuilt using URL: /?build-idx
@@ -66,36 +66,40 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 async function init() {
-    const md = markdownit({
-        html: true,
-        linkify: true,
-        typographer: true
-    });
+    const searchBox = document.getElementById('search-box');
+    searchBox.onkeyup = function(evt) {
+        document.getElementById("recipe-list").innerHTML = getRecipeListHtml(searchBox.value.trim());
+    };
 
     const urlParams = new URLSearchParams(window.location.search);
-
     if (urlParams.has('build-idx')) {
         document.body.innerHTML = await getIdx();
         return;
     }
 
-    const recipeFile = urlParams.get('recipe');
-    const recipe = await getRecipe(recipeFile);
-    if (!recipe) {
-        const recipeList = getRecipeList('');
+    const mdFilename = urlParams.get('recipe');
+    const mdText = await getFullMdText(mdFilename);
+    if (!mdText) {
+        const recipeList = getRecipeListHtml('');
         document.getElementById("recipe-list").innerHTML = recipeList;
         document.getElementById("recipe-list-container").style.display = "block";
         document.getElementById("recipe-container").style.display = "none";
         return;
     }
     else {
-        const [title, description, ingredients, instructions, notes, meta] = await parseMarkdown(recipe);
+        const md = markdownit({
+            html: true,
+            linkify: true,
+            typographer: true
+        });
+    
+        const [title, mdDescription, mdIngredients, mdInstructions, mdNotes, meta] = await getMdSections(mdText);
         document.title = title;
         document.getElementById("title").innerHTML = title;
-        document.getElementById("description").innerHTML = md.render(description);
-        document.getElementById("ingredients-container").innerHTML = md.render(ingredients);
-        document.getElementById("instructions-container").innerHTML = md.render(instructions);
-        document.getElementById("notes-container").innerHTML = md.render(notes);
+        document.getElementById("description").innerHTML = md.render(mdDescription);
+        document.getElementById("ingredients-container").innerHTML = md.render(mdIngredients);
+        document.getElementById("instructions-container").innerHTML = md.render(mdInstructions);
+        document.getElementById("notes-container").innerHTML = md.render(mdNotes);
         document.getElementById("recipe-container").style.display = "block";
         return;
     }
@@ -104,15 +108,15 @@ async function init() {
 async function getIdx() {
     const newIdx = [];
     for (const file of FILE_LIST) {
-        const recipe = await getRecipe(file);
-        const [title, description, ingredients, instructions, notes, meta] = await parseMarkdown(recipe);
+        const recipe = await getFullMdText(file);
+        const [title, description, ingredients, instructions, notes, meta] = await getMdSections(recipe);
         newIdx.push({file:file, title:title, categories:meta.categories});
     };
 
     return `<pre>const FILE_IDX = ${JSON.stringify(newIdx, null, 4)};</pre>`;
 }
 
-async function getRecipe(recipeFile) {
+async function getFullMdText(recipeFile) {
     if (!recipeFile) { return }
 
     const result = await fetch(`./recipes/${recipeFile}`);
@@ -121,32 +125,12 @@ async function getRecipe(recipeFile) {
     return null;
 }
 
-function getRecipeList(searchVal) {
-    const cats = {};
-
-    let recipeList = [];
-    if (!searchVal) {
-        recipeList = FILE_IDX;
-    }
-    else {
-        recipeList = FILE_IDX.filter((r) => r.title.toLowerCase().indexOf(searchVal.toLowerCase()) >= 0);
-    }
-
-    recipeList.forEach((element) => {
-        if (!element.categories) {element.categories = ['unclassified']}
-        if (!cats[element.categories[0]]) {cats[element.categories[0]] = []}
-        cats[element.categories[0]].push(element);
-    });
-
-    // sort cats
-    let sortedKeys = Object.keys(cats).sort();
+function getRecipeListHtml(searchVal) {
     let retHtml = '';
-    sortedKeys.forEach((key) => {
-        // sort cat recipes
-        cats[key] = cats[key].sort((a, b) => a.title.localeCompare(b.title));
-
+    let recipeList = filterRecipes(FILE_IDX, searchVal);
+    Object.keys(recipeList).sort().forEach((key) => {
         retHtml += `<div>${capitalizeFirstLetter(key)}</div><ul>`
-        cats[key].forEach((element) => {
+        recipeList[key].forEach((element) => {
             retHtml += `<li><a href="index.html?recipe=${element.file}">${element.title}</a></li>`;
         });
         retHtml += '</ul>';
@@ -154,7 +138,7 @@ function getRecipeList(searchVal) {
     return retHtml;
 }
 
-async function parseMarkdown(markdown) {
+async function getMdSections(markdown) {
 
     const meta = {};
     const regexMeta = /^---[\s\S]*?(?=^---)/gm;
@@ -200,11 +184,6 @@ async function parseMarkdown(markdown) {
     }
 
     return [title, description, ingredients, instructions, notes, meta];
-}
-
-function search() {
-    const searchBox = document.getElementById('search-box');
-    document.getElementById("recipe-list").innerHTML = getRecipeList(searchBox.value.trim());
 }
 
 function capitalizeFirstLetter(string) {

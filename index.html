@@ -6,7 +6,7 @@
     <title>Beer Recipes</title>
     <link rel="stylesheet" href="css/site.css">
     <script src="lib/markdown-it-14.0.0.min.js"></script>
-    <script src ="js/site.js"></script>
+    <script type="module" src="js/main.js"></script>
 </head>
 <body>
     <div id="page-wrapper">
@@ -14,7 +14,7 @@
         <div id="recipe-list-container">
             <div class="header">
                 <h1>Beer Recipes</h1>
-                <input id="search-box" type="text" onKeyUp="search()" style="width:225px;" placeholder="title search"/>
+                <input id="search-box" type="text" style="width:225px;" placeholder="title search"/>
             </div>
             <ul id="recipe-list"></ul>
         </div>
