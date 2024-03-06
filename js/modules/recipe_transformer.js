@@ -32,7 +32,7 @@ function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
-function getMdSections(mdText) {
+export function getMdSections(mdText) {
     const meta = {};
     const regexMeta = /^---[\s\S]*?(?=^---)/gm;
     const regexKeyValue = /\s*([a-z-]*):\s*(.*)/g;

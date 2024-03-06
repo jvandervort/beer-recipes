@@ -1,4 +1,5 @@
 import { getRecipeFile } from './recipe_service.js';
+import { getMdSections } from './recipe_transformer.js';
 
 // all recipes need to be added manually to fileList
 // and fileIdx needs to be rebuilt using URL: /?build-idx
@@ -63,7 +64,7 @@ export const fileIdx = [
 ];
 
 export async function getIdxJson() {
-    let newIdx = getIdx();
+    let newIdx = await getIdx();
     return JSON.stringify(newIdx, null, 4);
 }
 
